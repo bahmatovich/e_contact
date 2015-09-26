@@ -1,0 +1,109 @@
+{% load static %}
+{% load epages %}
+{% get_eflatpages as eflatpages %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{% block pagedescription %}{% endblock %}">
+    <meta name="author" content="{% block pageauthor %}{% endblock %}">
+    <title>{% block pagetitle %}Title{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
+
+    <link href="{% static 'bootstrap/css/carousel.css' %}" rel="stylesheet">
+    {% block pagehead %}{% endblock %}
+</head>
+<body>
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">E-contact</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                  {% for page in eflatpages %}
+                      {% spaceless %}
+                      <li {% ifequal eflatpage.url page.url %}
+                          class="active"
+                          {% endifequal %}>
+                          <a href="{{ page.url }}">{{ page.title }}</a>
+                      </li>
+                      {% endspaceless %}
+                  {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="{% static 'img/nastol.com.ua-22184.jpg' %}" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Надёжность</h1>
+              <p>Текст</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="{% static 'img/balllight_resized.jpg' %}" alt="Second slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Качество</h1>
+              <p>Текст</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="{% static 'img/999.jpg' %}" alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Доступность</h1>
+              <p>Текст</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div><!-- /.carousel -->
+
+    {% block pagecontent %}
+    {% endblock %}
+
+    <hr class="featurette-divider">
+
+    <!-- FOOTER -->
+    <footer class="container">
+        <p class="pull-right"><a href="#">Наверх</a></p>
+        <p>&copy; 2015 Company, Inc.</p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
